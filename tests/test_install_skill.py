@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 import shutil
+import sys
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'scripts/install_skill.py'
 
@@ -34,7 +35,7 @@ class InstallationTests(unittest.TestCase):
         return subprocess.check_output(['git', *args], cwd=self.root)
 
     def run_installer(self):
-        return subprocess.run(['python3', str(self.root / 'scripts/install_skill.py'), '--dest', str(self.destination)], capture_output=True, text=True)
+        return subprocess.run([sys.executable, str(self.root / 'scripts/install_skill.py'), '--dest', str(self.destination)], capture_output=True, text=True)
 
     def test_copy_only_tracked_foundation_and_preserve_existing_install(self):
         (self.root / 'prototype/.env').write_text('private fixture')
@@ -52,9 +53,21 @@ class InstallationTests(unittest.TestCase):
         self.assertNotEqual(self.run_installer().returncode, 0)
         self.assertEqual((installed / 'SKILL.md').read_text(), 'keep me')
 
+    def test_installs_committed_content_and_excludes_local_skill_files(self):
+        (self.root / 'prototype/src/app.ts').write_text('uncommitted change')
+        (self.root / 'skills/feature-workbench/SKILL.md').write_text('uncommitted instructions')
+        (self.root / 'skills/feature-workbench/private-notes.txt').write_text('local only')
+        result = self.run_installer()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        installed = self.destination / 'feature-workbench'
+        self.assertEqual((installed / 'SKILL.md').read_text(), 'shared instructions')
+        self.assertFalse((installed / 'private-notes.txt').exists())
+        self.assertEqual((installed / 'assets/foundation/prototype/src/app.ts').read_text(), 'export {}')
+
     def test_refuses_tracked_symlink_without_partial_install(self):
         (self.root / 'prototype/link').symlink_to('/tmp')
         self.git('add', 'prototype/link')
+        self.git('-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '-qm', 'symlink fixture')
         self.assertNotEqual(self.run_installer().returncode, 0)
         self.assertFalse((self.destination / 'feature-workbench').exists())
         self.assertEqual(list(self.destination.iterdir()), [])

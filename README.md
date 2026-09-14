@@ -38,7 +38,7 @@ python3 scripts/install_skill.py --host codex
 python3 scripts/install_skill.py --host claude
 ```
 
-Ziele: `$CODEX_HOME/skills/feature-workbench` (sonst `~/.codex/skills/feature-workbench`) und `~/.claude/skills/feature-workbench`. Der Installer kopiert Skill und vorhandene Vorlage ohne `node_modules` oder lokale Laufzeitdaten. Er überschreibt keine vorhandene Installation; für ein Update diese bewusst außerhalb des Skill-Verzeichnisses sichern und erneut installieren.
+Ziele: `$CODEX_HOME/skills/feature-workbench` (sonst `~/.codex/skills/feature-workbench`) und `~/.claude/skills/feature-workbench`. Der Installer kopiert ausschließlich den eingecheckten Stand (`HEAD`) von Skill und Vorlage ohne `node_modules` oder lokale Laufzeitdaten. Er überschreibt keine vorhandene Installation; für ein Update diese bewusst außerhalb des Skill-Verzeichnisses sichern und erneut installieren.
 
 Aufruf in Codex: `$feature-workbench …`; in Claude Code: `/feature-workbench …`. In einer neuen Sitzung verwenden, falls die laufende Sitzung ihre Skill-Liste noch nicht aktualisiert hat. Die Vorlage wird erst im jeweiligen Aufgaben-Worktree angepasst und mit `npm ci` eingerichtet; die Skill-Installation startet keinen Server.
 

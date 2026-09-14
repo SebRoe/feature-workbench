@@ -3,7 +3,6 @@
 import argparse
 import os
 from pathlib import Path
-import shutil
 import subprocess
 import tempfile
 
@@ -13,27 +12,34 @@ def install(destination: Path) -> Path:
     target = destination.expanduser().absolute() / 'feature-workbench'
     if target.exists() or target.is_symlink():
         raise FileExistsError(f'Skill already exists: {target}; move it aside explicitly before reinstalling')
-    files = subprocess.check_output(
-        ['git', 'ls-files', '-z', '--', 'prototype', 'docs', 'README.md'], cwd=root
-    ).decode().split('\0')
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root).decode().strip()
+    entries = subprocess.check_output(
+        ['git', 'ls-tree', '-r', '-z', revision, '--', 'skills/feature-workbench', 'prototype', 'docs', 'README.md'], cwd=root
+    ).decode().split('\0')
     target.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.feature-workbench-', dir=target.parent) as temporary:
         staged = Path(temporary) / 'feature-workbench'
-        shutil.copytree(root / 'skills' / 'feature-workbench', staged)
         foundation = staged / 'assets' / 'foundation'
-        for name in filter(None, files):
-            source = root / name
-            if source.is_symlink():
-                raise ValueError(f'Refusing symlink in foundation: {name}')
-            output = foundation / name
+        for entry in filter(None, entries):
+            metadata, name = entry.split('\t', 1)
+            mode, kind, object_id = metadata.split()
+            if mode not in ('100644', '100755') or kind != 'blob':
+                raise ValueError(f'Refusing non-regular file in snapshot: {name}')
+            path = Path(name)
+            if path.parts[:2] == ('skills', 'feature-workbench'):
+                output = staged / path.relative_to('skills/feature-workbench')
+            else:
+                output = foundation / path
             output.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(source, output)
+            output.write_bytes(subprocess.check_output(['git', 'cat-file', 'blob', object_id], cwd=root))
+            output.chmod(0o755 if mode == '100755' else 0o644)
+        if not (staged / 'SKILL.md').is_file():
+            raise ValueError('Commit the skill files before installing')
         (foundation / 'REVISION').write_text(revision + '\n')
-        # Check again before publishing the complete staged installation.
-        if target.exists() or target.is_symlink():
-            raise FileExistsError(f'Skill already exists: {target}')
-        staged.rename(target)
+        # Atomically reserve the name; never replace even an empty existing folder.
+        target.mkdir()
+        for child in staged.iterdir():
+            child.rename(target / child.name)
     return target
 
 

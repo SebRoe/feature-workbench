@@ -9,5 +9,4 @@
 - [OCR plan](plans/2026-09-14-ocr-foundation.md): first real UI/backend test case and review evidence.
 - [Publication plan](plans/2026-09-14-publication.md): initial public snapshot and verification.
 - [Visual evidence](plans/evidence/README.md): screenshots and their limits.
-
 - [Skill installation plan](plans/2026-09-14-installable-skill.md): packaging, installation and verification.
