@@ -15,3 +15,20 @@ The first adapter is deliberately concrete. Do not infer a universal engine, gra
 Images and extracted text stay in process/browser memory; processing uses local Tesseract, no external provider. Request sizes, image dimensions, concurrency, duration and output are bounded. Browser clients cannot supply shell commands, paths or remote image URLs. The service is local development infrastructure, not an authenticated public upload service.
 
 See [OCR execution plan](plans/2026-09-14-ocr-foundation.md) for acceptance and evidence. Product-source changes still need explicit approval.
+
+## Workbench folders in a target repository
+
+Confirmed convention: each new workbench undertaking gets a directory under the target repository's `.workbench/` folder:
+
+```text
+.workbench/
+└── 20260612_1345_hotkey-overlay/
+```
+
+Name format: `YYYYMMDD_HHmm_<name>`. The timestamp is the creation time in local time (24-hour clock); `<name>` is a short descriptive kebab-case name. The timestamp identifies the undertaking, not an individual feedback round.
+
+Keep the same folder for subsequent feedback rounds. Version its changes through Git instead of creating a new timestamped copy for each round. Before creating a folder, check whether it already exists; never overwrite another undertaking because its timestamp and name match.
+
+The folder groups the work surface, example inputs, feedback and verification evidence. Exact internal filenames and serialization formats remain to be specified with the skill. This convention is agreed for the future skill; automatic scaffolding and repository feedback persistence are not implemented yet. The runnable example in this repository remains under `prototype/`.
+
+Only authorized, suitable content belongs in Git. The folder convention does not authorize committing secrets, private test inputs or target-product source changes. Complete revision comparison/restoration in the UI remains a separate planned capability.

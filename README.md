@@ -32,6 +32,10 @@ Echte Dateien eines Zielprodukts bleiben bis zum ausdrücklichen Approval unange
 
 Der gemeinsame Skill wird als nächster Schritt ausgearbeitet. Heute enthält dieses Repo die ausführbare Grundlage und [Agent-Anweisungen](AGENTS.md). [Roadmap](docs/ROADMAP.md).
 
+## Workbench-Ordner im Zielprojekt
+
+Bestätigte Konvention für den geplanten Skill: `.workbench/YYYYMMDD_HHmm_<name>/`, zum Beispiel `.workbench/20260612_1345_hotkey-overlay/`. Der Zeitstempel steht für die lokale Erstellungszeit, der Name ist kurzes kebab-case. Feedbackrunden bleiben im selben Ordner und werden über Git versioniert. Die automatische Anlage ist noch nicht implementiert. Details: [Architektur](docs/ARCHITECTURE.md#workbench-folders-in-a-target-repository).
+
 ## Lizenz
 
 Eine Projektlizenz wurde noch nicht festgelegt. Die Veröffentlichung allein ist keine Open-Source-Lizenz. Abhängigkeiten behalten ihre jeweiligen Lizenzen.
