@@ -18,16 +18,16 @@ See [OCR execution plan](plans/2026-09-14-ocr-foundation.md) for acceptance and 
 
 ## Workbench folders in a target repository
 
-Confirmed convention: each new workbench undertaking gets a directory under the target repository's `.workbench/` folder:
+Confirmed convention: each new workbench undertaking gets a directory under the target repository's `.workbench/` folder, in its own worktree on a workbench branch. Commit workbench changes on that branch; merging them into the target project's main branch requires explicit integration approval. Creating this experimental folder does not authorize product-source changes.
 
 ```text
 .workbench/
 └── 20260612_1345_hotkey-overlay/
 ```
 
-Name format: `YYYYMMDD_HHmm_<name>`. The timestamp is the creation time in local time (24-hour clock); `<name>` is a short descriptive kebab-case name. The timestamp identifies the undertaking, not an individual feedback round.
+Name format: `YYYYMMDD_HHmm_<name>`. The timestamp is the creation time in local time (24-hour clock); `<name>` is a short descriptive kebab-case name. The timestamp labels the undertaking, not an individual feedback round. Local timestamps are for readability; they are not unique IDs or globally chronological across time zones.
 
-Keep the same folder for subsequent feedback rounds. Version its changes through Git instead of creating a new timestamped copy for each round. Before creating a folder, check whether it already exists; never overwrite another undertaking because its timestamp and name match.
+Keep the same folder for subsequent feedback rounds. Version its changes through Git instead of creating a new timestamped copy for each round. Resume using the known folder path recorded for the current task, not a name match alone. Before creating a new folder, check whether it already exists; never overwrite another undertaking. For a collision, append the smallest available numeric suffix to the descriptive name, for example `20260612_1345_hotkey-overlay-2`.
 
 The folder groups the work surface, example inputs, feedback and verification evidence. Exact internal filenames and serialization formats remain to be specified with the skill. This convention is agreed for the future skill; automatic scaffolding and repository feedback persistence are not implemented yet. The runnable example in this repository remains under `prototype/`.
 
