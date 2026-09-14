@@ -20,4 +20,4 @@ Feedback is collected across pages and revised together on a chat request. Chang
 
 ## Future workflow
 
-A reusable Codex/Claude skill should instruct agents to read versioned context, prepare an isolated workbench, run and inspect it, collect feedback, and repeat. The exact installation/distribution format and complete version/promotion workflow remain open. See [roadmap](ROADMAP.md).
+The reusable Codex/Claude skill instructs agents to read versioned context, prepare an isolated workbench, run and inspect it, collect feedback, and repeat. The installer packages the shared skill and foundation locally. Complete version/promotion tooling remains open. See [roadmap](ROADMAP.md).

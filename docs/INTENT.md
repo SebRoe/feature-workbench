@@ -16,7 +16,7 @@ Feature Workbench helps people understand, try and shape a software change befor
 
 ## Planned capabilities and current limits
 
-Each complete feedback round should eventually have a comparable, restorable version, with the new checked state shown directly, without a mandatory intermediate change-review screen. Keeping the previous state usable during revision is an optional convenience when inexpensive. Current V1/V2 controls demonstrate prepared UI variants only. Full version restoration, automatic repository feedback synchronization, installable skills and product promotion are not implemented.
+Each complete feedback round should eventually have a comparable, restorable version, with the new checked state shown directly, without a mandatory intermediate change-review screen. Keeping the previous state usable during revision is an optional convenience when inexpensive. Current V1/V2 controls demonstrate prepared UI variants only. Full version restoration, automatic repository feedback synchronization and product promotion are not implemented. A shared installable skill now guides the manual workflow.
 
 ## Non-goals
 

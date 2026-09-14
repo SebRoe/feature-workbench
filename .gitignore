@@ -9,3 +9,6 @@ dist/
 coverage/
 # roborev snapshots
 /.roborev/
+
+# Python installer checks
+__pycache__/

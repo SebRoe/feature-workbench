@@ -26,4 +26,4 @@ OCR and integration tests require local Tesseract 5 with the `eng` language mode
 - Headroom: pending; not a runtime dependency.
 - Roborev: enabled for maintainer reviews. Use the opposing coding agent explicitly (Codex implementation → Claude Code review; Claude implementation → Codex review) with a single-agent panel. Reviews are read-only and happen after the completed, self-checked step. Evaluate findings, fix in-scope issues, and verify them. Do not install automatic commit/turn hooks or CI jobs.
 
-These tools are not required to run the workbench. No global agent configuration is bundled. The reusable Codex/Claude skill is planned but not yet implemented; this file is project guidance, not an installable skill.
+These tools are not required to run the workbench. No global agent configuration is bundled. The reusable Codex/Claude skill lives in `skills/feature-workbench/SKILL.md`; this file remains project guidance. Use `scripts/install_skill.py` to install a self-contained foundation snapshot.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Workbench"
+  short_description: "Build and review isolated interactive feature drafts"
+  default_prompt: "Use $feature-workbench to prepare an isolated interactive draft for this feature."

@@ -26,15 +26,27 @@ http://127.0.0.1:5187 — ein Prozess startet Oberfläche und lokale OCR-Schnitt
 - [Design](docs/DESIGN.md)
 - [Lokales Fundament](docs/ARCHITECTURE.md)
 
-Echte Dateien eines Zielprodukts bleiben bis zum ausdrücklichen Approval unangetastet. Ein öffentlicher früher Prototyp; noch kein veröffentlichtes Paket, installierbarer Skill, Agentendienst oder vollständiger Versions-/Promotionsworkflow.
+Echte Dateien eines Zielprodukts bleiben bis zum ausdrücklichen Approval unangetastet. Ein öffentlicher früher Prototyp; ein installierbarer Skill mit Vorlage, aber kein Paketrelease, Agentendienst oder vollständiger Versions-/Promotionsworkflow.
 
 ## Codex und Claude
 
-Der gemeinsame Skill wird als nächster Schritt ausgearbeitet. Heute enthält dieses Repo die ausführbare Grundlage und [Agent-Anweisungen](AGENTS.md). [Roadmap](docs/ROADMAP.md).
+Der [gemeinsame Skill](skills/feature-workbench/SKILL.md) lässt sich aus dem geklonten Repository installieren (Python 3 und Git erforderlich):
+
+```sh
+# Im Repository-Root:
+python3 scripts/install_skill.py --host codex
+python3 scripts/install_skill.py --host claude
+```
+
+Ziele: `$CODEX_HOME/skills/feature-workbench` (sonst `~/.codex/skills/feature-workbench`) und `~/.claude/skills/feature-workbench`. Der Installer kopiert Skill und vorhandene Vorlage ohne `node_modules` oder lokale Laufzeitdaten. Er überschreibt keine vorhandene Installation; für ein Update diese bewusst außerhalb des Skill-Verzeichnisses sichern und erneut installieren.
+
+Aufruf in Codex: `$feature-workbench …`; in Claude Code: `/feature-workbench …`. In einer neuen Sitzung verwenden, falls die laufende Sitzung ihre Skill-Liste noch nicht aktualisiert hat. Die Vorlage wird erst im jeweiligen Aufgaben-Worktree angepasst und mit `npm ci` eingerichtet; die Skill-Installation startet keinen Server.
+
+Ablauf: isolierten Worktree vorbereiten, frühen Draft ausführen, Anmerkungen sammeln, auf Chat-Auftrag gemeinsam umsetzen, prüfen und neuen Stand zeigen. Vollständiges Compare/Restore und automatische Feedback-Synchronisierung bleiben offen. [Roadmap](docs/ROADMAP.md).
 
 ## Workbench-Ordner im Zielprojekt
 
-Bestätigte Konvention für den geplanten Skill: `.workbench/YYYYMMDD_HHmm_<name>/`, zum Beispiel `.workbench/20260612_1345_hotkey-overlay/`. Der Zeitstempel steht für die lokale Erstellungszeit, der Name ist kurzes kebab-case. Feedbackrunden bleiben im selben Ordner und werden über Git versioniert. Die automatische Anlage ist noch nicht implementiert. Details: [Architektur](docs/ARCHITECTURE.md#workbench-folders-in-a-target-repository).
+Bestätigte Konvention für den Skill: `.workbench/YYYYMMDD_HHmm_<name>/`, zum Beispiel `.workbench/20260612_1345_hotkey-overlay/`. Der Zeitstempel steht für die lokale Erstellungszeit, der Name ist kurzes kebab-case. Feedbackrunden bleiben im selben Ordner und werden über Git versioniert. Die automatische Anlage ist noch nicht implementiert. Details: [Architektur](docs/ARCHITECTURE.md#workbench-folders-in-a-target-repository).
 
 ## Lizenz
 
