@@ -11,7 +11,8 @@ Unter `prototype/`: Benachrichtigung, ausführbare Rabattregel und echte lokale 
 Voraussetzungen: Node 22.12+ und Tesseract 5 mit englischem Sprachmodell `eng` im PATH. Geprüft mit Node 22.22.2 und Tesseract 5.5.1. Einrichtung und Grenzen: [prototype/README.md](prototype/README.md).
 
 ```sh
-cd prototype
+git clone https://github.com/SebRoe/feature-workbench.git
+cd feature-workbench/prototype
 npm ci
 npm run dev -- --host 127.0.0.1 --port 5187 --strictPort
 ```

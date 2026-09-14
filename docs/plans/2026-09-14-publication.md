@@ -10,7 +10,7 @@ Authorized target: public `SebRoe/feature-workbench` on GitHub. Publish the test
 - [x] Clearly distinguish the runnable foundation from the planned Codex/Claude skill.
 - [x] Check tracked contents, links and sensitive material; verify install, tests and build from this checkout.
 - [x] Review the publication diff independently using the configured maintainer workflow.
-- [ ] Create a clean initial commit with a GitHub noreply identity, create the public repository, push only the intended branch, and verify visibility/default branch/content.
+- [x] Create a clean initial commit with a GitHub noreply identity, create the public repository, push only the intended branch, and verify visibility/default branch/content.
 
 No workflow automation, deployment, package release or target-product source is included. The project license remains undecided. Earlier local histories and machine-specific context are deliberately excluded from the public commit graph.
 
@@ -19,3 +19,7 @@ No workflow automation, deployment, package release or target-product source is 
 Fresh checkout: npm ci succeeds, 21 tests pass, lint has no errors (two existing shadcn warnings), TypeScript/build passes. Application source and dependencies are byte-for-byte unchanged from the previously browser-verified OCR foundation. Public tracked-text screening found no personal machine paths, private key markers or common credential patterns; local Markdown links resolve. Screenshots use synthetic data.
 
 The independent documentation/publication review identified stale runtime references, inconsistent acceptance wording, an outdated documentation map, and two omitted intent requirements. These were corrected and checked against the confirmed product intent. No extra implementation or deployment was introduced.
+
+## Publication result
+
+Created https://github.com/SebRoe/feature-workbench as a public repository. Default branch `main` was verified through the GitHub API. Initial public commit `5c1f10b` is a root commit, with no earlier local history reachable. Only `main` was pushed. No workflows, deployment or package release were created. Subsequent public development must descend from this public history, not from the retained private preparation branches.
