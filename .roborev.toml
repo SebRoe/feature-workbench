@@ -1,0 +1,3 @@
+# Manual, read-only maintainer review after a completed and self-checked step.
+agent = "claude-code"
+review_guidelines = "Read-only review of the assigned diff and its documented acceptance criteria. Preserve scope; do not edit files."

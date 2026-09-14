@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+.context/
+.worktrees/
+dist/
+coverage/
+# roborev snapshots
+/.roborev/
